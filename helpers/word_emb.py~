@@ -1,0 +1,26 @@
+import pickle
+
+
+info = json.load(open(opt["info_json"]))
+word_to_ix = info['word_to_ix']
+def load_cached_vector(fname):
+    with open(fname, 'rb') as fp:
+        word_dict = pickle.load(fp)
+    return word_dict
+
+
+def load_fasttext(fname):
+    word_dict = {}
+    with open(fname, 'r') as f:
+        lines = f.readlines()
+        for line in lines[1:]:
+            line = line.strip().split()
+
+            key = line[0]
+            value = map(float, line[1:])
+
+            word_dict[key] = value
+
+    return word_dict
+
+
